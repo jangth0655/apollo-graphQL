@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createGlobalStyle } from "styled-components";
 import App from "./components/App";
+import client from "./apllo";
+import { ApolloProvider } from "@apollo/client";
 
 const GlobalStyles = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -51,8 +53,10 @@ table {
 
 ReactDOM.render(
   <React.StrictMode>
-    <GlobalStyles />
-    <App />
+    <ApolloProvider client={client}>
+      <GlobalStyles />
+      <App />
+    </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
