@@ -7,6 +7,7 @@ const GET_MOVIES = gql`
     movies {
       id
       medium_cover_image
+      isLike @client
     }
   }
 `;
@@ -44,7 +45,6 @@ const Loading = styled.div`
 
 const Home = () => {
   const { loading, data, error } = useQuery(GET_MOVIES);
-
   return (
     <Container>
       <Header>
@@ -53,8 +53,9 @@ const Home = () => {
       </Header>
       {loading && <Loading>Loading...</Loading>}
       {!loading &&
-        data.movies &&
-        data.movies.map((m) => <Movie key={m.id} id={m.id} />)}
+        data?.movies.map((m) => (
+          <Movie key={m.id} isLiked={m.isLiked} id={m.id} />
+        ))}
     </Container>
   );
 };
